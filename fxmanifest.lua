@@ -6,7 +6,7 @@ author 'zetta64'
 
 name 'zetta64_discordlogs'
 
-version '1.2'
+version '1.3'
 
 description 'Discord logs for FiveM servers using webhooks.'
 

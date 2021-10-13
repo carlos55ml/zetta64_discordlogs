@@ -67,28 +67,22 @@ if Config.loginLog then
     end
 end
 
-Citizen.CreateThread(function() 
-    local check = 0
-    while check == 0 do
-        Citizen.Wait(0)
-        resName = GetCurrentResourceName()
-        resState = GetResourceState(resName)
-        if resState == 'started' then
-            if Config.whlink == '' then
-                print('^7[^1INFO^7]: No default WebHook URL detected. Please configure the script correctly.')
-                check = 1
-            else 
-                print('^7[^2INFO^7]: '..resName..' initiated succesfully.')
-                local whData = {
-                    link = Config.whlink,
-                    title = "LOGGER STARTED",
-                    color = 4521728,
-                    message = 
-                    '**'..resName..'** HAS STARTED SUCCESFULLY.'
-                }
-                TriggerEvent('z64_logs:sendWebhook', whData)
-                check = 1
-            end
+AddEventHandler('onResourceStart', function(resource)
+    resName = GetCurrentResourceName()
+    if resource == resName then
+        if Config.whlink == '' then
+            print('^7[^1INFO^7]: No default WebHook URL detected. Please configure the script correctly.')
+            check = 1
+        else 
+            print('^7[^2INFO^7]: '..resName..' initiated succesfully.')
+            local whData = {
+                link = Config.whlink,
+                title = "LOGGER STARTED",
+                color = 4521728,
+                message = 
+                '**'..resName..'** HAS STARTED SUCCESFULLY.'
+            }
+            TriggerEvent('z64_logs:sendWebhook', whData)
         end
     end
 end)
