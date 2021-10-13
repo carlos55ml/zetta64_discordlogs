@@ -10,7 +10,7 @@ Script made for FiveM. It uses Discord WebHooks to log events in the form of emb
 
 1. Download by clicking on "code" > "download zip".
 2. Extract in your resources folder.
-3. Add `ensure zetta64_discordlogger` to your server.cfg
+3. Add `ensure zetta64_discordlogs` to your server.cfg
 
 # Configuration:
 In the **config.lua** file of the resource you can customize certain options:
