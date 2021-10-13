@@ -72,7 +72,6 @@ AddEventHandler('onResourceStart', function(resource)
     if resource == resName then
         if Config.whlink == '' then
             print('^7[^1INFO^7]: No default WebHook URL detected. Please configure the script correctly.')
-            check = 1
         else 
             print('^7[^2INFO^7]: '..resName..' initiated succesfully.')
             local whData = {
