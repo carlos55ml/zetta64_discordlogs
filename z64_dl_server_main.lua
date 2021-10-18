@@ -35,7 +35,6 @@ Citizen.CreateThread(function()
         if Config.loginLogLink == '' then
             print('^7[^1INFO^7]: Please set a WebHook URL in the config.lua to log players joining and leaving.')
         else
-            print('test 1')
         AddEventHandler('playerJoining', function()
             local id = source
             local ids = GetPlayerIdentifier(id, steam)
