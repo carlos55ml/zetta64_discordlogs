@@ -1,3 +1,5 @@
+Config = {}
+
 function SendWebHook(whLink, title, color, message)
     local embedMsg = {}
     timestamp = os.date("%c")
@@ -28,44 +30,47 @@ AddEventHandler('z64_logs:sendWebhook', function(whData)
     SendWebHook(whLink, title, color, message)
 end)
 
-if Config.loginLog then
-    if Config.loginLogLink == '' then
-        print('^7[^1INFO^7]: Please set a WebHook URL in the config.lua to log players joining and leaving.')
-    else
-    AddEventHandler('playerJoining', function()
-        local id = source
-        local ids = GetPlayerIdentifier(id, steam)
-        local plyName = GetPlayerName(id)
-        local whData = {
-            link = Config.loginLogLink,
-			title = plyName.." JOINING",
-			color = 655104,
-			message = 
-			'**[User]: **'..plyName..'\n'..
-			'**[Identifier]: **'..ids..'\n'..
-            '**[Asigned ID]: **'..id..'\n'
-		}
-		TriggerEvent('z64_logs:sendWebhook', whData)
-    end)
+Citizen.CreateThread(function()
+    if Config.loginLog then
+        if Config.loginLogLink == '' then
+            print('^7[^1INFO^7]: Please set a WebHook URL in the config.lua to log players joining and leaving.')
+        else
+            print('test 1')
+        AddEventHandler('playerJoining', function()
+            local id = source
+            local ids = GetPlayerIdentifier(id, steam)
+            local plyName = GetPlayerName(id)
+            local whData = {
+                link = Config.loginLogLink,
+                title = plyName.." JOINING",
+                color = 655104,
+                message = 
+                '**[User]: **'..plyName..'\n'..
+                '**[Identifier]: **'..ids..'\n'..
+                '**[Asigned ID]: **'..id..'\n'
+            }
+            TriggerEvent('z64_logs:sendWebhook', whData)
+        end)
 
-    AddEventHandler('playerDropped', function(reason)
-        local id = source
-        local ids = GetPlayerIdentifier(id, steam)
-        local plyName = GetPlayerName(id)
-        local reason = reason
-        local whData = {
-            link = Config.loginLogLink,
-			title = plyName.." LEFT",
-			color = 16711689,
-			message = 
-			'**[User]: **'..plyName..'\n'..
-			'**[Identifier]: **'..ids..'\n'..
-            '**[Reason]: **'..reason..'\n'
-		}
-		TriggerEvent('z64_logs:sendWebhook', whData)
-    end)
+        AddEventHandler('playerDropped', function(reason)
+            local id = source
+            local ids = GetPlayerIdentifier(id, steam)
+            local plyName = GetPlayerName(id)
+            local reason = reason
+            local whData = {
+                link = Config.loginLogLink,
+                title = plyName.." LEFT",
+                color = 16711689,
+                message = 
+                '**[User]: **'..plyName..'\n'..
+                '**[Identifier]: **'..ids..'\n'..
+                '**[Reason]: **'..reason..'\n'
+            }
+            TriggerEvent('z64_logs:sendWebhook', whData)
+        end)
+        end
     end
-end
+end)
 
 AddEventHandler('onResourceStart', function(resource)
     resName = GetCurrentResourceName()
